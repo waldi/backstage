@@ -8,9 +8,12 @@
 import { AnyApiFactory } from '@backstage/core-plugin-api';
 import { AnyApiRef } from '@backstage/core-plugin-api';
 import { AppTheme } from '@backstage/core-plugin-api';
+import { BackstagePlugin as BackstagePlugin_2 } from '@backstage/core-plugin-api';
+import { ComponentType } from 'react';
 import { IconComponent } from '@backstage/core-plugin-api';
 import { JsonObject } from '@backstage/types';
 import { JSX as JSX_2 } from 'react';
+import { PropsWithChildren } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { z } from 'zod';
@@ -73,6 +76,12 @@ export interface BackstagePlugin<
 }
 
 // @public (undocumented)
+export type ComponentRef<T> = {
+  id: string;
+  T: T;
+};
+
+// @public (undocumented)
 export interface ConfigurableExtensionDataRef<
   TData,
   TConfig extends {
@@ -89,6 +98,29 @@ export interface ConfigurableExtensionDataRef<
 }
 
 // @public (undocumented)
+export type CoreBootErrorPageComponent = ComponentType<
+  PropsWithChildren<{
+    step: 'load-config' | 'load-chunk';
+    error: Error;
+  }>
+>;
+
+// @public (undocumented)
+export const coreBootErrorPageComponentRef: ComponentRef<CoreBootErrorPageComponent>;
+
+// @public (undocumented)
+export type CoreErrorBoundaryFallbackComponent = ComponentType<
+  PropsWithChildren<{
+    plugin?: BackstagePlugin_2;
+    error: Error;
+    resetError: () => void;
+  }>
+>;
+
+// @public (undocumented)
+export const coreErrorBoundaryFallbackComponentRef: ComponentRef<CoreErrorBoundaryFallbackComponent>;
+
+// @public (undocumented)
 export const coreExtensionData: {
   reactElement: ConfigurableExtensionDataRef<JSX_2.Element, {}>;
   routePath: ConfigurableExtensionDataRef<string, {}>;
@@ -96,7 +128,28 @@ export const coreExtensionData: {
   routeRef: ConfigurableExtensionDataRef<RouteRef<AnyRouteRefParams>, {}>;
   navTarget: ConfigurableExtensionDataRef<NavTarget, {}>;
   theme: ConfigurableExtensionDataRef<AppTheme, {}>;
+  component: ConfigurableExtensionDataRef<
+    {
+      ref: ComponentRef<ComponentType<any>>;
+      impl: ComponentType<any>;
+    },
+    {}
+  >;
 };
+
+// @public (undocumented)
+export type CoreNotFoundErrorPageComponent = ComponentType<
+  PropsWithChildren<{}>
+>;
+
+// @public (undocumented)
+export const coreNotFoundErrorPageComponentRef: ComponentRef<CoreNotFoundErrorPageComponent>;
+
+// @public (undocumented)
+export type CoreProgressComponent = ComponentType<PropsWithChildren<{}>>;
+
+// @public (undocumented)
+export const coreProgressComponentRef: ComponentRef<CoreProgressComponent>;
 
 // @public (undocumented)
 export function createApiExtension<
@@ -119,6 +172,22 @@ export function createApiExtension<
     inputs?: TInputs;
   },
 ): Extension<TConfig>;
+
+// @public (undocumented)
+export function createComponentExtension<
+  TRef extends ComponentRef<any>,
+  TConfig extends {},
+  TInputs extends AnyExtensionInputMap,
+>(options: {
+  ref: TRef;
+  disabled?: boolean;
+  inputs?: TInputs;
+  configSchema?: PortableSchema<TConfig>;
+  component: (values: {
+    config: TConfig;
+    inputs: Expand<ExtensionInputValues<TInputs>>;
+  }) => Promise<TRef['T']>;
+}): Extension<TConfig>;
 
 // @public (undocumented)
 export function createExtension<
@@ -370,6 +439,9 @@ export type ExtensionDataValues<TExtensionData extends AnyExtensionDataMap> = {
     ? DataName
     : never]?: TExtensionData[DataName]['T'];
 };
+
+// @public (undocumented)
+export function ExtensionError(props: { error: Error }): React_2.JSX.Element;
 
 // @public (undocumented)
 export interface ExtensionInput<
