@@ -88,7 +88,13 @@ import { RoutingProvider } from '../routing/RoutingProvider';
 import { resolveRouteBindings } from '../routing/resolveRouteBindings';
 import { collectRouteIds } from '../routing/collectRouteIds';
 import { AppNode, createAppTree } from '../tree';
-import { CoreComponents } from '../extensions/CoreComponents';
+import {
+  CoreComponents,
+  DefaultProgressComponent,
+  DefaultErrorBoundaryComponent,
+  DefaultBootErrorPageComponent,
+  DefaultNotFoundErrorPageComponent,
+} from '../extensions/CoreComponents';
 
 const builtinExtensions = [
   Core,
@@ -96,6 +102,10 @@ const builtinExtensions = [
   CoreNav,
   CoreLayout,
   CoreComponents,
+  DefaultProgressComponent,
+  DefaultErrorBoundaryComponent,
+  DefaultBootErrorPageComponent,
+  DefaultNotFoundErrorPageComponent,
   LightTheme,
   DarkTheme,
 ];
