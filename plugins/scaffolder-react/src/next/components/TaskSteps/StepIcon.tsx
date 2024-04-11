@@ -34,7 +34,9 @@ const useStepIconStyles = makeStyles(theme => ({
   },
 }));
 
-export const StepIcon = (props: StepIconProps & { skipped: boolean }) => {
+export const StepIcon = (
+  props: Omit<StepIconProps, 'icon'> & { skipped: boolean },
+) => {
   const classes = useStepIconStyles();
   const { active, completed, error, skipped } = props;
 

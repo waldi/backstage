@@ -19,6 +19,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   ScaffolderTaskOutput,
@@ -145,7 +146,7 @@ export const OngoingTask = (props: {
   return (
     <Page themeId="website">
       <Header
-        pageTitleOverride={`Run of ${templateName}`}
+        pageTitleOverride={`Run offff ${templateName}`}
         title={
           <div>
             Run of <code>{templateName}</code>
@@ -174,13 +175,47 @@ export const OngoingTask = (props: {
           </Box>
         ) : null}
 
-        <Box paddingBottom={2}>
+        {/* <Box paddingBottom={0}>
           <TaskSteps
             steps={steps}
             activeStep={activeStep}
             isComplete={taskStream.completed}
             isError={Boolean(taskStream.error)}
           />
+          <Box paddingBottom={2} height="100%">
+            <Paper style={{ height: '100%' }}>
+              <Box padding={2} height="100%">
+                <TaskLogStream logs={taskStream.stepLogs} />
+              </Box>
+            </Paper>
+          </Box>
+        </Box> */}
+
+        <Box paddingBottom={2} style={{ height: '52vh' }}>
+          <Grid container style={{ height: '100%' }}>
+            <Grid item xs={4} style={{ height: '100%' }}>
+              <Box style={{ height: '100%' }}>
+                <TaskSteps
+                  steps={steps}
+                  activeStep={activeStep}
+                  isComplete={taskStream.completed}
+                  isError={Boolean(taskStream.error)}
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={8} style={{ height: '100%' }}>
+              <Box height="100%">
+                <Paper
+                  style={{
+                    height: '100%',
+                    padding: '12px 12px 12px 0',
+                  }}
+                >
+                  <TaskLogStream logs={taskStream.stepLogs} />
+                </Paper>
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
 
         <Outputs output={taskStream.output} />
@@ -215,16 +250,6 @@ export const OngoingTask = (props: {
                     Start Over
                   </Button>
                 </div>
-              </Box>
-            </Paper>
-          </Box>
-        ) : null}
-
-        {logsVisible ? (
-          <Box paddingBottom={2} height="100%">
-            <Paper style={{ height: '100%' }}>
-              <Box padding={2} height="100%">
-                <TaskLogStream logs={taskStream.stepLogs} />
               </Box>
             </Paper>
           </Box>

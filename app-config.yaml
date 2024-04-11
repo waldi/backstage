@@ -1,5 +1,5 @@
 app:
-  title: Backstage Example App
+  title: Waldi Example App
   baseUrl: http://localhost:3000
   experimental:
     packages: all # ✨
@@ -241,6 +241,7 @@ catalog:
         - System
         - Domain
         - Location
+        - Template
   providers:
     backstageOpenapi:
       plugins:
@@ -292,7 +293,6 @@ catalog:
     # Example component for github-actions and TechDocs
     - type: file
       target: ../../plugins/github-actions/examples/sample.yaml
-    # Example component for TechDocs
     - type: file
       target: ../../plugins/techdocs-backend/examples/documented-component/catalog-info.yaml
     # Example component for ADRs
@@ -301,6 +301,10 @@ catalog:
     # Backstage example templates
     - type: file
       target: ../../plugins/scaffolder-backend/sample-templates/all-templates.yaml
+      rules:
+        - allow: [Template]
+    - type: file
+      target: ../../templates/test.yaml
       rules:
         - allow: [Template]
 scaffolder:

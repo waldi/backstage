@@ -21,3 +21,21 @@ spec:
   type: library
   owner: CNCF
   lifecycle: experimental
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: test-template
+  description: Template
+spec:
+  targets:
+    - ./templates/test.yaml
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: test-template-two
+  description: Template
+spec:
+  targets:
+    - ../../templates/test.yaml

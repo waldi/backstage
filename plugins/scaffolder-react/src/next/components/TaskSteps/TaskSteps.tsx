@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
-  Stepper as MuiStepper,
-  Step as MuiStep,
-  StepButton as MuiStepButton,
-  StepLabel as MuiStepLabel,
   StepIconProps,
   Box,
   Paper,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
 } from '@material-ui/core';
 import { TaskStep } from '@backstage/plugin-scaffolder-common';
 import { StepIcon } from './StepIcon';
@@ -47,48 +47,60 @@ export interface TaskStepsProps {
  * @alpha
  */
 export const TaskSteps = (props: TaskStepsProps) => {
+  const refs = useRef<HTMLElement[]>([]);
+
+  useEffect(() => {
+    if (!props.activeStep) return;
+    if (!refs.current[props.activeStep]) return;
+
+    refs.current[props.activeStep].scrollIntoView({
+      behavior: 'auto',
+      block: 'center',
+    });
+  }, [props.activeStep, refs]);
+
   return (
-    <Paper style={{ position: 'relative', overflow: 'hidden' }}>
+    <Paper style={{ position: 'relative', height: '100%' }}>
       <TaskBorder
         isComplete={props.isComplete ?? false}
         isError={props.isError ?? false}
       />
-      <Box padding={2}>
-        <MuiStepper
-          activeStep={props.activeStep}
-          alternativeLabel
-          variant="elevation"
-          style={{ overflowX: 'auto' }}
-        >
-          {props.steps.map(step => {
+      <Box padding={2} paddingRight={0} style={{ height: '100%' }}>
+        <List dense style={{ height: '100%', overflow: 'auto' }}>
+          {props.steps.map((step, index) => {
             const isCompleted = step.status === 'completed';
             const isFailed = step.status === 'failed';
             const isActive = step.status === 'processing';
             const isSkipped = step.status === 'skipped';
-            const stepIconProps: Partial<StepIconProps & { skipped: boolean }> =
-              {
-                completed: isCompleted,
-                error: isFailed,
-                active: isActive,
-                skipped: isSkipped,
-              };
+            const stepIconProps: Omit<StepIconProps, 'icon'> & {
+              skipped: boolean;
+            } = {
+              completed: isCompleted,
+              error: isFailed,
+              active: isActive,
+              skipped: isSkipped,
+            };
 
             return (
-              <MuiStep key={step.id}>
-                <MuiStepButton>
-                  <MuiStepLabel
-                    StepIconProps={stepIconProps}
-                    StepIconComponent={StepIcon}
-                    data-testid="step-label"
-                  >
-                    <Box>{step.name}</Box>
-                    {!isSkipped && <StepTime step={step} />}
-                  </MuiStepLabel>
-                </MuiStepButton>
-              </MuiStep>
+              <ListItem
+                key={step.id}
+                button
+                ref={element => {
+                  refs.current[index] = element!;
+                }}
+              >
+                <ListItemIcon>
+                  <StepIcon {...stepIconProps} />
+                </ListItemIcon>
+                <ListItemText
+                  data-testid="step-label"
+                  primary={step.name}
+                  secondary={!isSkipped && <StepTime step={step} />}
+                />
+              </ListItem>
             );
           })}
-        </MuiStepper>
+        </List>
       </Box>
     </Paper>
   );

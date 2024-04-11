@@ -59,7 +59,13 @@ export const DefaultTemplateOutputs = (props: {
     <>
       <Box paddingBottom={2}>
         <Paper>
-          <Box padding={2} justifyContent="center" display="flex" gridGap={16}>
+          <Box
+            padding={2}
+            justifyContent="center"
+            display="flex"
+            flexWrap="wrap"
+            gridGap={16}
+          >
             <TextOutputs
               output={output}
               index={textOutputIndex}

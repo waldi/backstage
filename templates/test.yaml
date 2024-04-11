@@ -1,0 +1,198 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: test-template
+  title: Test Template
+  description: A template for testing
+  tags:
+    - test
+spec:
+  type: service
+  parameters:
+    - title: General
+      properties:
+        name: 
+          title: Name
+          type: string
+          description: Name of the component
+          ui:autofocus: true
+  steps:
+    - name: Action 01
+      action: debug:log
+      input:
+        message: 'Action 01'
+    
+    - name: Action 02
+      action: debug:log
+      input:
+        message: 'Action 02'
+
+    - name: Action 03
+      action: debug:log
+      input:
+        message: 'Action 03'
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+        
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+
+    - name: Action 04
+      action: debug:log
+      input:
+        message: 'Action 04'
+    
+    - name: Action 05
+      action: debug:log
+      input:
+        message: 'Action 05'
+
+    - name: Action 01
+      action: debug:log
+      input:
+        message: 'Action 01'
+    
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+
+    - name: Action 02
+      action: debug:log
+      input:
+        message: 'Action 02'
+
+    - name: Action 03
+      action: debug:log
+      input:
+        message: 'Action 03'
+
+    - name: Action 04
+      action: debug:log
+      input:
+        message: 'Action 04'
+    
+    - name: Action 05
+      action: debug:log
+      input:
+        message: 'Action 05'
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+
+    - name: Action 01
+      action: debug:log
+      input:
+        message: 'Action 01'
+    
+    - name: Action 02
+      action: debug:log
+      input:
+        message: 'Action 02'
+
+    - name: Action 03
+      action: debug:log
+      input:
+        message: 'Action 03'
+
+    - name: Action 04
+      action: debug:log
+      input:
+        message: 'Action 04'
+    
+    - name: Action 05
+      action: debug:log
+      input:
+        message: 'Action 05'
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+    
+    - name: Action 01
+      action: debug:log
+      input:
+        message: 'Action 01'
+    
+    - name: Action 02
+      action: debug:log
+      input:
+        message: 'Action 02'
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+
+    - name: Action 03
+      action: debug:log
+      input:
+        message: 'Action 03'
+
+    - name: Action 04
+      action: debug:log
+      input:
+        message: 'Action 04'
+
+    - name: Wait
+      action: debug:wait
+      input:
+        seconds: 1
+    
+    - name: Action 05
+      action: debug:log
+      input:
+        message: 'Action 05'
+
+  output:
+    links:
+      - title: Test Link
+        url: https://backstage.io
+      - title: Test Link
+        url: https://backstage.io
+      - title: Test Link
+        url: https://backstage.io
+      - title: Test Link
+        url: https://backstage.io
+      - title: Test Link
+        url: https://backstage.io
+      - title: Open in catalog
+        icon: catalog
+        entityRef: component:default/artist-lookup
+      - title: Open in catalog
+        icon: catalog
+        entityRef: component:default/artist-lookup
+    text:
+      - title: Info
+        content: |
+          Hello,
+          This is a test template.
+          Best, Me
+      - title: Info Two
+        content: |
+          Hello,
+          This is a test template.
+          Best, Me

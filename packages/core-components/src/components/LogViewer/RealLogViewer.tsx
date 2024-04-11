@@ -41,11 +41,20 @@ export function RealLogViewer(props: RealLogViewerProps) {
 
   // The processor keeps state that optimizes appending to the text
   const processor = useMemo(() => new AnsiProcessor(), []);
-  const lines = processor.process(props.text);
+  const lines = useMemo(
+    () => processor.process(props.text),
+    [processor, props.text],
+  );
 
   const search = useLogViewerSearch(lines);
   const selection = useLogViewerSelection(lines);
   const location = useLocation();
+
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.scrollToItem(lines.length - 1, 'end');
+    }
+  }, [lines.length, props.text]);
 
   useEffect(() => {
     if (search.resultLine !== undefined && listRef.current) {
